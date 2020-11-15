@@ -61,7 +61,7 @@
     "classlist.js": "https://github.com/eligrey/classList.js/archive/1.2.20180112.tar.gz",
     "core-js": "^3.7.0",
     "date-fns": "^2.16.1",
-    "epubjs": "^0.3.85",
+    "epubjs": "^0.4.2",
     "pdfjs-dist": "2.5.207",
     "fast-text-encoding": "^1.0.3",
     "flv.js": "^1.5.0",
