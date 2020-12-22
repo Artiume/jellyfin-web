@@ -66,6 +66,14 @@ import ServerConnections from '../components/ServerConnections';
             overlayText: false,
             centerText: true
         }, {
+            name: 'Live TV',
+            types: 'Channels',
+            shape: getPosterShape(),
+            showTitle: true,
+            overlayPlayButton: true,
+            overlayText: false,
+            centerText: true
+        }, {
             name: 'Collections',
             types: 'BoxSet',
             shape: getPosterShape(),
