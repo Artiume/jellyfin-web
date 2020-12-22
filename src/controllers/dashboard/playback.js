@@ -1,7 +1,8 @@
-import $ from 'jQuery';
-import loading from 'loading';
-import libraryMenu from 'libraryMenu';
-import globalize from 'globalize';
+import 'jquery';
+import loading from '../../components/loading/loading';
+import libraryMenu from '../../scripts/libraryMenu';
+import globalize from '../../scripts/globalize';
+import Dashboard from '../../scripts/clientUtils';
 
 /* eslint-disable indent */
 
@@ -28,13 +29,13 @@ import globalize from 'globalize';
 
     function getTabs() {
         return [{
-            href: 'encodingsettings.html',
+            href: '#!/encodingsettings.html',
             name: globalize.translate('Transcoding')
         }, {
-            href: 'playbackconfiguration.html',
+            href: '#!/playbackconfiguration.html',
             name: globalize.translate('ButtonResume')
         }, {
-            href: 'streamingsettings.html',
+            href: '#!/streamingsettings.html',
             name: globalize.translate('TabStreaming')
         }];
     }

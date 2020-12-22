@@ -1,4 +1,7 @@
-import 'css!components/viewManager/viewContainer';
+import { importModule } from '@uupaa/dynamic-import-polyfill';
+import './viewManager/viewContainer.css';
+import Dashboard from '../scripts/clientUtils';
+
 /* eslint-disable indent */
 
     function setControllerClass(view, options) {
@@ -15,7 +18,7 @@ import 'css!components/viewManager/viewContainer';
 
             controllerUrl = Dashboard.getPluginUrl(controllerUrl);
             const apiUrl = ApiClient.getUrl('/web/' + controllerUrl);
-            return import(apiUrl).then((ControllerFactory) => {
+            return importModule(apiUrl).then((ControllerFactory) => {
                 options.controllerFactory = ControllerFactory;
             });
         }

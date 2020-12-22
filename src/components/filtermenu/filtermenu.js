@@ -1,18 +1,20 @@
-import dom from 'dom';
-import focusManager from 'focusManager';
-import dialogHelper from 'dialogHelper';
-import inputManager from 'inputManager';
-import layoutManager from 'layoutManager';
-import globalize from 'globalize';
-import * as userSettings from 'userSettings';
-import 'emby-checkbox';
-import 'emby-input';
-import 'paper-icon-button-light';
-import 'emby-select';
-import 'material-icons';
-import 'css!./../formdialog';
-import 'emby-button';
-import 'flexStyles';
+import dom from '../../scripts/dom';
+import focusManager from '../focusManager';
+import dialogHelper from '../dialogHelper/dialogHelper';
+import inputManager from '../../scripts/inputManager';
+import layoutManager from '../layoutManager';
+import globalize from '../../scripts/globalize';
+import * as userSettings from '../../scripts/settings/userSettings';
+import '../../elements/emby-checkbox/emby-checkbox';
+import '../../elements/emby-input/emby-input';
+import '../../elements/emby-button/emby-button';
+import '../../elements/emby-button/paper-icon-button-light';
+import '../../elements/emby-select/emby-select';
+import 'material-design-icons-iconfont';
+import '../formdialog.css';
+import '../../assets/css/flexstyles.scss';
+import ServerConnections from '../ServerConnections';
+import template from './filtermenu.template.html';
 
 function onSubmit(e) {
     e.preventDefault();
@@ -80,7 +82,7 @@ function moveCheckboxFocus(elem, offset) {
     }
 }
 function centerFocus(elem, horiz, on) {
-    import('scrollHelper').then(({ default: scrollHelper }) => {
+    import('../../scripts/scrollHelper').then((scrollHelper) => {
         const fn = on ? 'on' : 'off';
         scrollHelper.centerFocus[fn](elem, horiz);
     });
@@ -193,7 +195,7 @@ function initEditor(context, settings) {
     }
 }
 function loadDynamicFilters(context, options) {
-    const apiClient = window.connectionManager.getApiClient(options.serverId);
+    const apiClient = ServerConnections.getApiClient(options.serverId);
 
     const filterMenuOptions = Object.assign(options.filterMenuOptions, {
 
@@ -209,75 +211,73 @@ function loadDynamicFilters(context, options) {
 class FilterMenu {
     show(options) {
         return new Promise( (resolve, reject) => {
-            import('text!./filtermenu.template.html').then(({ default: template }) => {
-                const dialogOptions = {
-                    removeOnClose: true,
-                    scrollY: false
-                };
-                if (layoutManager.tv) {
-                    dialogOptions.size = 'fullscreen';
+            const dialogOptions = {
+                removeOnClose: true,
+                scrollY: false
+            };
+            if (layoutManager.tv) {
+                dialogOptions.size = 'fullscreen';
+            } else {
+                dialogOptions.size = 'small';
+            }
+
+            const dlg = dialogHelper.createDialog(dialogOptions);
+
+            dlg.classList.add('formDialog');
+
+            let html = '';
+
+            html += '<div class="formDialogHeader">';
+            html += '<button is="paper-icon-button-light" class="btnCancel hide-mouse-idle-tv" tabindex="-1"><span class="material-icons arrow_back"></span></button>';
+            html += '<h3 class="formDialogHeaderTitle">${Filters}</h3>';
+
+            html += '</div>';
+
+            html += template;
+
+            dlg.innerHTML = globalize.translateHtml(html, 'core');
+
+            const settingElements = dlg.querySelectorAll('.viewSetting');
+            for (let i = 0, length = settingElements.length; i < length; i++) {
+                if (options.visibleSettings.indexOf(settingElements[i].getAttribute('data-settingname')) === -1) {
+                    settingElements[i].classList.add('hide');
                 } else {
-                    dialogOptions.size = 'small';
+                    settingElements[i].classList.remove('hide');
                 }
+            }
 
-                const dlg = dialogHelper.createDialog(dialogOptions);
+            initEditor(dlg, options.settings);
+            loadDynamicFilters(dlg, options);
 
-                dlg.classList.add('formDialog');
+            bindCheckboxInput(dlg, true);
+            dlg.querySelector('.btnCancel').addEventListener('click', function () {
+                dialogHelper.close(dlg);
+            });
 
-                let html = '';
+            if (layoutManager.tv) {
+                centerFocus(dlg.querySelector('.formDialogContent'), false, true);
+            }
 
-                html += '<div class="formDialogHeader">';
-                html += '<button is="paper-icon-button-light" class="btnCancel hide-mouse-idle-tv" tabindex="-1"><span class="material-icons arrow_back"></span></button>';
-                html += '<h3 class="formDialogHeaderTitle">${Filters}</h3>';
+            let submitted;
 
-                html += '</div>';
+            dlg.querySelector('form').addEventListener('change', function () {
+                submitted = true;
+            }, true);
 
-                html += template;
-
-                dlg.innerHTML = globalize.translateHtml(html, 'core');
-
-                const settingElements = dlg.querySelectorAll('.viewSetting');
-                for (let i = 0, length = settingElements.length; i < length; i++) {
-                    if (options.visibleSettings.indexOf(settingElements[i].getAttribute('data-settingname')) === -1) {
-                        settingElements[i].classList.add('hide');
-                    } else {
-                        settingElements[i].classList.remove('hide');
-                    }
-                }
-
-                initEditor(dlg, options.settings);
-                loadDynamicFilters(dlg, options);
-
-                bindCheckboxInput(dlg, true);
-                dlg.querySelector('.btnCancel').addEventListener('click', function () {
-                    dialogHelper.close(dlg);
-                });
+            dialogHelper.open(dlg).then( function() {
+                bindCheckboxInput(dlg, false);
 
                 if (layoutManager.tv) {
-                    centerFocus(dlg.querySelector('.formDialogContent'), false, true);
+                    centerFocus(dlg.querySelector('.formDialogContent'), false, false);
                 }
 
-                let submitted;
-
-                dlg.querySelector('form').addEventListener('change', function () {
-                    submitted = true;
-                }, true);
-
-                dialogHelper.open(dlg).then( function() {
-                    bindCheckboxInput(dlg, false);
-
-                    if (layoutManager.tv) {
-                        centerFocus(dlg.querySelector('.formDialogContent'), false, false);
-                    }
-
-                    if (submitted) {
-                        //if (!options.onChange) {
-                        saveValues(dlg, options.settings, options.settingsKey);
-                        return resolve();
-                        //}
-                    }
+                if (submitted) {
+                    //if (!options.onChange) {
+                    saveValues(dlg, options.settings, options.settingsKey);
                     return resolve();
-                });
+                    //}
+                }
+                return resolve();
             });
         });
     }

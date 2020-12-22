@@ -1,8 +1,9 @@
+
 /* eslint-disable indent */
 
-import appSettings from 'appSettings' ;
-import browser from 'browser';
-import events from 'events';
+import appSettings from '../scripts/settings/appSettings' ;
+import browser from '../scripts/browser';
+import { Events } from 'jellyfin-apiclient';
 
     export function getSavedVolume() {
         return appSettings.get('volume') || 1;
@@ -114,7 +115,7 @@ import events from 'events';
             instance.destroyCustomTrack(instance._mediaElement);
         }
 
-        events.trigger(instance, 'error', [
+        Events.trigger(instance, 'error', [
             {
                 type: type
             }
@@ -157,15 +158,11 @@ import events from 'events';
                         // (but rewinding cannot happen as the first event with media of non-empty duration)
                         console.debug(`seeking to ${seconds} on ${e.type} event`);
                         setCurrentTimeIfNeeded(element, seconds);
-                        events.map(function(name) {
-                            element.removeEventListener(name, onMediaChange);
-                        });
+                        events.forEach(name => element.removeEventListener(name, onMediaChange));
                         if (onMediaReady) onMediaReady();
                     }
                 };
-                events.map(function (name) {
-                    return element.addEventListener(name, onMediaChange);
-                });
+                events.forEach(name => element.addEventListener(name, onMediaChange));
             }
         }
     }
@@ -359,7 +356,7 @@ import events from 'events';
             src: instance._currentSrc
         };
 
-        events.trigger(instance, 'stopped', [stopInfo]);
+        Events.trigger(instance, 'stopped', [stopInfo]);
 
         instance._currentTime = null;
         instance._currentSrc = null;

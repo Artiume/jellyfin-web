@@ -1,24 +1,24 @@
-import loading from 'loading';
-import libraryMenu from 'libraryMenu';
-import dom from 'dom';
-import globalize from 'globalize';
-import 'cardStyle';
-import 'emby-button';
+import loading from '../../../../components/loading/loading';
+import libraryMenu from '../../../../scripts/libraryMenu';
+import dom from '../../../../scripts/dom';
+import globalize from '../../../../scripts/globalize';
+import '../../../../components/cardbuilder/card.css';
+import '../../../../elements/emby-button/emby-button';
+import Dashboard, { pageIdOn } from '../../../../scripts/clientUtils';
+import confirm from '../../../../components/confirm/confirm';
 
 function deletePlugin(page, uniqueid, name) {
     const msg = globalize.translate('UninstallPluginConfirmation', name);
 
-    import('confirm').then(({default: confirm}) => {
-        confirm.default({
-            title: globalize.translate('HeaderUninstallPlugin'),
-            text: msg,
-            primary: 'delete',
-            confirmText: globalize.translate('HeaderUninstallPlugin')
-        }).then(function () {
-            loading.show();
-            ApiClient.uninstallPlugin(uniqueid).then(function () {
-                reloadList(page);
-            });
+    confirm({
+        title: globalize.translate('HeaderUninstallPlugin'),
+        text: msg,
+        primary: 'delete',
+        confirmText: globalize.translate('HeaderUninstallPlugin')
+    }).then(function () {
+        loading.show();
+        ApiClient.uninstallPlugin(uniqueid).then(function () {
+            reloadList(page);
         });
     });
 }
@@ -98,7 +98,7 @@ function populateList(page, plugins, pluginConfigurationPages) {
     } else {
         html += '<div class="centerMessage">';
         html += '<h1>' + globalize.translate('MessageNoPluginsInstalled') + '</h1>';
-        html += '<p><a is="emby-linkbutton" class="button-link" href="availableplugins.html">';
+        html += '<p><a is="emby-linkbutton" class="button-link" href="#!/availableplugins.html">';
         html += globalize.translate('MessageBrowsePluginCatalog');
         html += '</a></p>';
         html += '</div>';
@@ -132,7 +132,7 @@ function showPluginMenu(page, elem) {
         });
     }
 
-    import('actionsheet').then(({default: actionsheet}) => {
+    import('../../../../components/actionSheet/actionSheet').then((actionsheet) => {
         actionsheet.show({
             items: menuItems,
             positionTo: elem,
@@ -159,13 +159,13 @@ function reloadList(page) {
 
 function getTabs() {
     return [{
-        href: 'installedplugins.html',
+        href: '#!/installedplugins.html',
         name: globalize.translate('TabMyPlugins')
     }, {
-        href: 'availableplugins.html',
+        href: '#!/availableplugins.html',
         name: globalize.translate('TabCatalog')
     }, {
-        href: 'repositories.html',
+        href: '#!/repositories.html',
         name: globalize.translate('TabRepositories')
     }];
 }

@@ -1,20 +1,23 @@
-import dom from 'dom';
-import layoutManager from 'layoutManager';
-import inputManager from 'inputManager';
-import events from 'events';
-import viewManager from 'viewManager';
-import appRouter from 'appRouter';
-import appHost from 'apphost';
-import playbackManager from 'playbackManager';
-import syncPlayManager from 'syncPlayManager';
-import * as groupSelectionMenu from 'groupSelectionMenu';
-import browser from 'browser';
-import globalize from 'globalize';
-import imageHelper from 'scripts/imagehelper';
-import 'paper-icon-button-light';
-import 'material-icons';
-import 'scrollStyles';
-import 'flexStyles';
+import dom from './dom';
+import layoutManager from '../components/layoutManager';
+import inputManager from './inputManager';
+import { Events } from 'jellyfin-apiclient';
+import viewManager from '../components/viewManager/viewManager';
+import { appRouter } from '../components/appRouter';
+import { appHost } from '../components/apphost';
+import { playbackManager } from '../components/playback/playbackmanager';
+import SyncPlay from '../components/syncPlay/core';
+import groupSelectionMenu from '../components/syncPlay/ui/groupSelectionMenu';
+import browser from './browser';
+import globalize from './globalize';
+import imageHelper from './imagehelper';
+import '../elements/emby-button/paper-icon-button-light';
+import 'material-design-icons-iconfont';
+import '../assets/css/scrollstyles.css';
+import '../assets/css/flexstyles.scss';
+import Dashboard, { pageClassOn } from './clientUtils';
+import ServerConnections from '../components/ServerConnections';
+import Headroom from 'headroom.js';
 
 /* eslint-disable indent */
 
@@ -60,14 +63,14 @@ import 'flexStyles';
 
     function getCurrentApiClient() {
         if (currentUser && currentUser.localUser) {
-            return window.connectionManager.getApiClient(currentUser.localUser.ServerId);
+            return ServerConnections.getApiClient(currentUser.localUser.ServerId);
         }
 
-        return window.connectionManager.currentApiClient();
+        return ServerConnections.currentApiClient();
     }
 
     function lazyLoadViewMenuBarImages() {
-        import('imageLoader').then(({default: imageLoader}) => {
+        import('../components/images/imageLoader').then((imageLoader) => {
             imageLoader.lazyChildren(skinHeader);
         });
     }
@@ -199,8 +202,8 @@ import 'flexStyles';
         if (layoutManager.mobile) {
             initHeadRoom(skinHeader);
         }
-        events.on(playbackManager, 'playbackstart', onPlaybackStart);
-        events.on(playbackManager, 'playbackstop', onPlaybackStop);
+        Events.on(playbackManager, 'playbackstart', onPlaybackStart);
+        Events.on(playbackManager, 'playbackstop', onPlaybackStop);
     }
 
     function onPlaybackStart(e) {
@@ -220,7 +223,7 @@ import 'flexStyles';
     function onCastButtonClicked() {
         const btn = this;
 
-        import('playerSelectionMenu').then(({default: playerSelectionMenu}) => {
+        import('../components/playback/playerSelectionMenu').then((playerSelectionMenu) => {
             playerSelectionMenu.show(btn);
         });
     }
@@ -289,7 +292,7 @@ import 'flexStyles';
     function refreshLibraryInfoInDrawer(user, drawer) {
         let html = '';
         html += '<div style="height:.5em;"></div>';
-        html += '<a is="emby-linkbutton" class="navMenuOption lnkMediaFolder" href="home.html"><span class="material-icons navMenuOptionIcon home"></span><span class="navMenuOptionText">' + globalize.translate('Home') + '</span></a>';
+        html += '<a is="emby-linkbutton" class="navMenuOption lnkMediaFolder" href="#!/home.html"><span class="material-icons navMenuOptionIcon home"></span><span class="navMenuOptionText">' + globalize.translate('Home') + '</span></a>';
 
         // libraries are added here
         html += '<div class="libraryMenuOptions">';
@@ -300,8 +303,8 @@ import 'flexStyles';
             html += '<h3 class="sidebarHeader">';
             html += globalize.translate('HeaderAdmin');
             html += '</h3>';
-            html += '<a is="emby-linkbutton" class="navMenuOption lnkMediaFolder lnkManageServer" data-itemid="dashboard" href="dashboard.html"><span class="material-icons navMenuOptionIcon dashboard"></span><span class="navMenuOptionText">' + globalize.translate('TabDashboard') + '</span></a>';
-            html += '<a is="emby-linkbutton" class="navMenuOption lnkMediaFolder editorViewMenu" data-itemid="editor" href="edititemmetadata.html"><span class="material-icons navMenuOptionIcon mode_edit"></span><span class="navMenuOptionText">' + globalize.translate('Metadata') + '</span></a>';
+            html += '<a is="emby-linkbutton" class="navMenuOption lnkMediaFolder lnkManageServer" data-itemid="dashboard" href="#!/dashboard.html"><span class="material-icons navMenuOptionIcon dashboard"></span><span class="navMenuOptionText">' + globalize.translate('TabDashboard') + '</span></a>';
+            html += '<a is="emby-linkbutton" class="navMenuOption lnkMediaFolder editorViewMenu" data-itemid="editor" href="#!/edititemmetadata.html"><span class="material-icons navMenuOptionIcon mode_edit"></span><span class="navMenuOptionText">' + globalize.translate('Metadata') + '</span></a>';
             html += '</div>';
         }
 
@@ -312,7 +315,7 @@ import 'flexStyles';
             html += '</h3>';
 
             if (appHost.supports('multiserver')) {
-                html += '<a is="emby-linkbutton" class="navMenuOption lnkMediaFolder" data-itemid="selectserver" href="selectserver.html?showuser=1"><span class="material-icons navMenuOptionIcon wifi"></span><span class="navMenuOptionText">' + globalize.translate('SelectServer') + '</span></a>';
+                html += '<a is="emby-linkbutton" class="navMenuOption lnkMediaFolder btnSelectServer" data-itemid="selectserver" href="#"><span class="material-icons navMenuOptionIcon wifi"></span><span class="navMenuOptionText">' + globalize.translate('SelectServer') + '</span></a>';
             }
 
             html += '<a is="emby-linkbutton" class="navMenuOption lnkMediaFolder btnSettings" data-itemid="settings" href="#"><span class="material-icons navMenuOptionIcon settings"></span><span class="navMenuOptionText">' + globalize.translate('Settings') + '</span></a>';
@@ -322,6 +325,11 @@ import 'flexStyles';
 
         // add buttons to navigation drawer
         navDrawerScrollContainer.innerHTML = html;
+
+        const btnSelectServer = navDrawerScrollContainer.querySelector('.btnSelectServer');
+        if (btnSelectServer) {
+            btnSelectServer.addEventListener('click', onSelectServerClick);
+        }
 
         const btnSettings = navDrawerScrollContainer.querySelector('.btnSettings');
         if (btnSettings) {
@@ -387,28 +395,28 @@ import 'flexStyles';
             name: globalize.translate('TabServer')
         }, {
             name: globalize.translate('TabDashboard'),
-            href: 'dashboard.html',
+            href: '#!/dashboard.html',
             pageIds: ['dashboardPage'],
             icon: 'dashboard'
         }, {
             name: globalize.translate('General'),
-            href: 'dashboardgeneral.html',
+            href: '#!/dashboardgeneral.html',
             pageIds: ['dashboardGeneralPage'],
             icon: 'settings'
         }, {
             name: globalize.translate('HeaderUsers'),
-            href: 'userprofiles.html',
+            href: '#!/userprofiles.html',
             pageIds: ['userProfilesPage', 'newUserPage', 'editUserPage', 'userLibraryAccessPage', 'userParentalControlPage', 'userPasswordPage'],
             icon: 'people'
         }, {
             name: globalize.translate('HeaderLibraries'),
-            href: 'library.html',
+            href: '#!/library.html',
             pageIds: ['mediaLibraryPage', 'librarySettingsPage', 'libraryDisplayPage', 'metadataImagesConfigurationPage', 'metadataNfoPage'],
             icon: 'folder'
         }, {
             name: globalize.translate('TitlePlayback'),
             icon: 'play_arrow',
-            href: 'encodingsettings.html',
+            href: '#!/encodingsettings.html',
             pageIds: ['encodingSettingsPage', 'playbackConfigurationPage', 'streamingSettingsPage']
         }];
         addPluginPagesToMainMenu(links, pluginItems, 'server');
@@ -418,25 +426,25 @@ import 'flexStyles';
         });
         links.push({
             name: globalize.translate('HeaderDevices'),
-            href: 'devices.html',
+            href: '#!/devices.html',
             pageIds: ['devicesPage', 'devicePage'],
             icon: 'devices'
         });
         links.push({
             name: globalize.translate('QuickConnect'),
-            href: 'quickConnect.html',
+            href: '#!/quickConnect.html',
             pageIds: ['quickConnectPage'],
             icon: 'tap_and_play'
         });
         links.push({
             name: globalize.translate('HeaderActivity'),
-            href: 'serveractivity.html',
+            href: '#!/serveractivity.html',
             pageIds: ['serverActivityPage'],
             icon: 'assessment'
         });
         links.push({
             name: globalize.translate('DLNA'),
-            href: 'dlnasettings.html',
+            href: '#!/dlnasettings.html',
             pageIds: ['dlnaSettingsPage', 'dlnaProfilesPage', 'dlnaProfilePage'],
             icon: 'input'
         });
@@ -446,13 +454,13 @@ import 'flexStyles';
         });
         links.push({
             name: globalize.translate('LiveTV'),
-            href: 'livetvstatus.html',
+            href: '#!/livetvstatus.html',
             pageIds: ['liveTvStatusPage', 'liveTvTunerPage'],
             icon: 'live_tv'
         });
         links.push({
             name: globalize.translate('HeaderDVR'),
-            href: 'livetvsettings.html',
+            href: '#!/livetvsettings.html',
             pageIds: ['liveTvSettingsPage'],
             icon: 'dvr'
         });
@@ -463,36 +471,36 @@ import 'flexStyles';
         links.push({
             name: globalize.translate('TabNetworking'),
             icon: 'cloud',
-            href: 'networking.html',
+            href: '#!/networking.html',
             pageIds: ['networkingPage']
         });
         links.push({
             name: globalize.translate('HeaderApiKeys'),
             icon: 'vpn_key',
-            href: 'apikeys.html',
+            href: '#!/apikeys.html',
             pageIds: ['apiKeysPage']
         });
         links.push({
             name: globalize.translate('TabLogs'),
-            href: 'log.html',
+            href: '#!/log.html',
             pageIds: ['logPage'],
             icon: 'bug_report'
         });
         links.push({
             name: globalize.translate('TabNotifications'),
             icon: 'notifications',
-            href: 'notificationsettings.html',
+            href: '#!/notificationsettings.html',
             pageIds: ['notificationSettingsPage', 'notificationSettingPage']
         });
         links.push({
             name: globalize.translate('TabPlugins'),
             icon: 'shopping_cart',
-            href: 'installedplugins.html',
+            href: '#!/installedplugins.html',
             pageIds: ['pluginsPage', 'pluginCatalogPage']
         });
         links.push({
             name: globalize.translate('TabScheduledTasks'),
-            href: 'scheduledtasks.html',
+            href: '#!/scheduledtasks.html',
             pageIds: ['scheduledTasksPage', 'scheduledTaskPage'],
             icon: 'schedule'
         });
@@ -564,7 +572,7 @@ import 'flexStyles';
     function createDashboardMenu(apiClient) {
         return getToolsMenuHtml(apiClient).then(function (toolsMenuHtml) {
             let html = '';
-            html += '<a class="adminDrawerLogo clearLink" is="emby-linkbutton" href="home.html">';
+            html += '<a class="adminDrawerLogo clearLink" is="emby-linkbutton" href="#!/home.html">';
             html += '<img src="assets/img/icon-transparent.png" />';
             html += '</a>';
             html += toolsMenuHtml;
@@ -595,7 +603,7 @@ import 'flexStyles';
                     guideView.Name = globalize.translate('Guide');
                     guideView.ImageTags = {};
                     guideView.icon = 'dvr';
-                    guideView.url = 'livetv.html?tab=1';
+                    guideView.url = '#!/livetv.html?tab=1';
                     list.push(guideView);
                 }
             }
@@ -672,6 +680,10 @@ import 'flexStyles';
         if (dom.parentWithTag(e.target, 'A')) {
             setTimeout(closeMainDrawer, 30);
         }
+    }
+
+    function onSelectServerClick() {
+        Dashboard.selectServer();
     }
 
     function onSettingsClick() {
@@ -774,7 +786,7 @@ import 'flexStyles';
         }
 
         if (requiresUserRefresh) {
-            window.connectionManager.user(getCurrentApiClient()).then(updateUserInHeader);
+            ServerConnections.user(getCurrentApiClient()).then(updateUserInHeader);
         }
     }
 
@@ -799,10 +811,8 @@ import 'flexStyles';
     }
 
     function initHeadRoom(elem) {
-        import('headroom').then(({default: Headroom}) => {
-            const headroom = new Headroom(elem);
-            headroom.init();
-        });
+        const headroom = new Headroom(elem);
+        headroom.init();
     }
 
     function refreshLibraryDrawer(user) {
@@ -812,9 +822,9 @@ import 'flexStyles';
         if (user) {
             Promise.resolve(user);
         } else {
-            window.connectionManager.user(getCurrentApiClient()).then(function (user) {
-                refreshLibraryInfoInDrawer(user);
-                updateLibraryMenu(user.localUser);
+            ServerConnections.user(getCurrentApiClient()).then(function (userResult) {
+                refreshLibraryInfoInDrawer(userResult);
+                updateLibraryMenu(userResult.localUser);
             });
         }
     }
@@ -839,8 +849,8 @@ import 'flexStyles';
         navDrawerScrollContainer = navDrawerElement.querySelector('.scrollContainer');
         navDrawerScrollContainer.addEventListener('click', onMainDrawerClick);
         return new Promise(function (resolve, reject) {
-            import('navdrawer').then(({default: navdrawer}) => {
-                navDrawerInstance = new navdrawer(getNavDrawerOptions());
+            import('../libraries/navdrawer/navdrawer').then(({ NavigationDrawer }) => {
+                navDrawerInstance = new NavigationDrawer(getNavDrawerOptions());
 
                 if (!layoutManager.tv) {
                     navDrawerElement.classList.remove('hide');
@@ -871,7 +881,7 @@ import 'flexStyles';
     let requiresUserRefresh = true;
 
     function setTabs (type, selectedIndex, builder) {
-        import('mainTabsManager').then((mainTabsManager) => {
+        import('../components/maintabsmanager').then((mainTabsManager) => {
             if (type) {
                 mainTabsManager.setTabs(viewManager.currentView(), selectedIndex, builder, function () {
                     return [];
@@ -976,8 +986,8 @@ import 'flexStyles';
         updateLibraryNavLinks(page);
     });
 
-    events.on(window.connectionManager, 'localusersignedin', function (e, user) {
-        const currentApiClient = window.connectionManager.getApiClient(user.ServerId);
+    Events.on(ServerConnections, 'localusersignedin', function (e, user) {
+        const currentApiClient = ServerConnections.getApiClient(user.ServerId);
 
         currentDrawerType = null;
         currentUser = {
@@ -986,21 +996,21 @@ import 'flexStyles';
 
         loadNavDrawer();
 
-        window.connectionManager.user(currentApiClient).then(function (user) {
-            currentUser = user;
-            updateUserInHeader(user);
+        ServerConnections.user(currentApiClient).then(function (userResult) {
+            currentUser = userResult;
+            updateUserInHeader(userResult);
         });
     });
 
-    events.on(window.connectionManager, 'localusersignedout', function () {
+    Events.on(ServerConnections, 'localusersignedout', function () {
         currentUser = {};
         updateUserInHeader();
     });
 
-    events.on(playbackManager, 'playerchange', updateCastIcon);
+    Events.on(playbackManager, 'playerchange', updateCastIcon);
 
-    events.on(syncPlayManager, 'enabled', onSyncPlayEnabled);
-    events.on(syncPlayManager, 'syncing', onSyncPlaySyncing);
+    Events.on(SyncPlay.Manager, 'enabled', onSyncPlayEnabled);
+    Events.on(SyncPlay.Manager, 'syncing', onSyncPlaySyncing);
 
     loadNavDrawer();
 
