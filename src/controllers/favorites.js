@@ -70,6 +70,7 @@ import ServerConnections from '../components/ServerConnections';
             types: 'Channels',
             shape: getPosterShape(),
             showTitle: true,
+            showParentTitle: true,
             overlayPlayButton: true,
             overlayText: false,
             centerText: true
