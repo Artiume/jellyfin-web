@@ -18,22 +18,8 @@ import Dashboard from '../../scripts/clientUtils';
 
 /* eslint-disable indent */
 
-    function itemsPerRow() {
-        const screenWidth = dom.getWindowSize().innerWidth;
-
-        if (screenWidth >= 1920) {
-            return 9;
-        }
-
-        if (screenWidth >= 1200) {
-            return 12;
-        }
-
-        if (screenWidth >= 1000) {
-            return 10;
-        }
-
-        return 8;
+    function MusicPerRow() {
+        return 20;
     }
 
     function enableScrollX() {
@@ -49,7 +35,7 @@ import Dashboard from '../../scripts/clientUtils';
         const userId = ApiClient.getCurrentUserId();
         const options = {
             IncludeItemTypes: 'Audio',
-            Limit: enableScrollX() ? 3 * itemsPerRow() : 2 * itemsPerRow(),
+            Limit: MusicPerRow(),
             Fields: 'PrimaryImageAspectRatio,BasicSyncInfo',
             ParentId: parentId,
             ImageTypeLimit: 1,
@@ -86,7 +72,7 @@ import Dashboard from '../../scripts/clientUtils';
             SortBy: 'DatePlayed',
             SortOrder: 'Descending',
             IncludeItemTypes: 'Audio',
-            Limit: itemsPerRow(),
+            Limit: MusicPerRow(),
             Recursive: true,
             Fields: 'PrimaryImageAspectRatio,AudioInfo',
             Filters: 'IsPlayed',
@@ -128,7 +114,7 @@ import Dashboard from '../../scripts/clientUtils';
             SortBy: 'PlayCount',
             SortOrder: 'Descending',
             IncludeItemTypes: 'Audio',
-            Limit: itemsPerRow(),
+            Limit: MusicPerRow(),
             Recursive: true,
             Fields: 'PrimaryImageAspectRatio,AudioInfo',
             Filters: 'IsPlayed',
