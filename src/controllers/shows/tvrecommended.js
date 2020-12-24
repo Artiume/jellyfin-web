@@ -138,7 +138,7 @@ import autoFocuser from '../../components/autoFocuser';
         const options = {
             userId: userId,
             IncludeItemTypes: 'Episode',
-            Limit: 30,
+            Limit: 50,
             Fields: 'PrimaryImageAspectRatio,BasicSyncInfo',
             ParentId: parentId,
             ImageTypeLimit: 1,
