@@ -33,7 +33,7 @@ import Dashboard from '../../scripts/clientUtils';
     function loadLatest(page, userId, parentId) {
         const options = {
             IncludeItemTypes: 'Movie',
-            Limit: 18,
+            Limit: 50,
             Fields: 'PrimaryImageAspectRatio,MediaSourceCount,BasicSyncInfo',
             ParentId: parentId,
             ImageTypeLimit: 1,
