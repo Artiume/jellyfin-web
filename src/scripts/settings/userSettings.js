@@ -124,7 +124,7 @@ export class UserSettings {
             return this.set('allowedAudioChannels', val, false);
         }
 
-        return this.get('allowedAudioChannels', false) || '-1';
+        return this.get('allowedAudioChannels', false) || '2';
     }
 
     /**
