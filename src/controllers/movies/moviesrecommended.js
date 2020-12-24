@@ -66,7 +66,7 @@ import Dashboard from '../../scripts/clientUtils';
             SortOrder: 'Descending',
             IncludeItemTypes: 'Movie',
             Filters: 'IsResumable',
-            Limit: 'MoviesResumeLimit',
+            Limit: 20,
             Recursive: true,
             Fields: 'PrimaryImageAspectRatio,MediaSourceCount,BasicSyncInfo',
             CollapseBoxSetItems: false,
@@ -160,7 +160,7 @@ import Dashboard from '../../scripts/clientUtils';
         const url = ApiClient.getUrl('Movies/Recommendations', {
             userId: userId,
             categoryLimit: 6,
-            ItemLimit: MoviesSuggestionsLimit,
+            ItemLimit: 20,
             Fields: 'PrimaryImageAspectRatio,MediaSourceCount,BasicSyncInfo',
             ImageTypeLimit: 1,
             EnableImageTypes: 'Primary,Backdrop,Banner,Thumb'
