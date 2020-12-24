@@ -23,6 +23,7 @@
       "id": "wmc"
     }
   ],
+  "servers": [],
   "plugins": [
     "playAccessValidation/plugin",
     "experimentalWarnings/plugin",
@@ -37,15 +38,5 @@
     "logoScreensaver/plugin",
     "sessionPlayer/plugin",
     "chromecastPlayer/plugin"
-  ],
-  "recommended": [
-    {
-      "name": "Movies",
-      "id": "movies"
-    }, {
-      "name": "Shows",
-      "id": "shows"
-    }
-  ],
-  "servers": []
+  ]
 }
