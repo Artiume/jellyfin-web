@@ -127,6 +127,8 @@ import template from './displaySettings.template.html';
         context.querySelector('.selectDateTimeLocale').value = userSettings.dateTimeLocale() || '';
 
         context.querySelector('#txtLibraryPageSize').value = userSettings.libraryPageSize();
+        context.querySelector('#txtMoviesLatestSize').value = userSettings.MoviesLatestSize();
+        context.querySelector('#txtEpisodesLatestSize').value = userSettings.EpisodesLatestSize();
 
         context.querySelector('.selectLayout').value = layoutManager.getSavedLayout() || '';
 
