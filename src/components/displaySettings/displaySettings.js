@@ -127,8 +127,9 @@ import template from './displaySettings.template.html';
         context.querySelector('.selectDateTimeLocale').value = userSettings.dateTimeLocale() || '';
 
         context.querySelector('#txtLibraryPageSize').value = userSettings.libraryPageSize();
-        context.querySelector('#txtMoviesLatestSize').value = userSettings.MoviesLatestSize();
-        context.querySelector('#txtEpisodesLatestSize').value = userSettings.EpisodesLatestSize();
+        context.querySelector('#txtMoviesPerRow').value = userSettings.MoviesPerRow();
+        context.querySelector('#txtEpisodesPerRow').value = userSettings.EpisodesPerRow();
+        context.querySelector('#txtMusicPerRow').value = userSettings.MusicPerRow();
 
         context.querySelector('.selectLayout').value = layoutManager.getSavedLayout() || '';
 
@@ -152,8 +153,9 @@ import template from './displaySettings.template.html';
         userSettingsInstance.screensaver(context.querySelector('.selectScreensaver').value);
 
         userSettingsInstance.libraryPageSize(context.querySelector('#txtLibraryPageSize').value);
-        userSettingsInstance.MoviesLatestSize(context.querySelector('#txtMoviesLatestSize').value);
-        userSettingsInstance.EpisodesLatestSize(context.querySelector('#txtEpisodesLatestSize').value);
+        userSettingsInstance.MoviesPerRow(context.querySelector('#txtMoviesPerRow').value);
+        userSettingsInstance.EpisodesPerRow(context.querySelector('#txtEpisodesPerRow').value);
+        userSettingsInstance.MusicPerRow(context.querySelector('#txtMusicPerRow').value);
 
         userSettingsInstance.enableFastFadein(context.querySelector('#chkFadein').checked);
         userSettingsInstance.enableBlurhash(context.querySelector('#chkBlurhash').checked);
