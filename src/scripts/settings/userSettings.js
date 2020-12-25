@@ -408,7 +408,7 @@ export class UserSettings {
         }
     }
 
-   /**
+    /**
      * Get or set Episodes Per Row size.
      * @param {number|undefined} val - Episodes Per Row value.
      * @return {number} Episodes Per Row value.
