@@ -15,11 +15,16 @@ import '../../elements/emby-itemscontainer/emby-itemscontainer';
 import '../../elements/emby-tabs/emby-tabs';
 import '../../elements/emby-button/emby-button';
 import Dashboard from '../../scripts/clientUtils';
+import * as userSettings from '../../scripts/settings/userSettings';
 
 /* eslint-disable indent */
 
+     if (userSettings.MoviesPerRow() > 0) {
+          query['Limit'] = userSettings.MoviesPerRow();
+      }
+
     function MoviesPerRow() {
-        return 50;
+        return query['Limit'];
     }
 
     function enableScrollX() {
