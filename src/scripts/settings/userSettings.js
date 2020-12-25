@@ -198,6 +198,20 @@ export class UserSettings {
     }
 
     /**
+     * Get or set 'Always Scroll' state.
+     * @param {boolean|undefined} val - Flag to enable 'Always Scroll' or undefined.
+     * @return {boolean} 'Always Scroll' state.
+     */
+    enableAlwaysScroll(val) {
+        if (val !== undefined) {
+            return this.set('enableAlwaysScroll', val.toString(), false);
+        }
+
+        val = this.get('enableAlwaysScroll', false);
+        return val === 'true';
+    }
+
+    /**
      * Get or set 'Fast Fade-in' state.
      * @param {boolean|undefined} val - Flag to enable 'Fast Fade-in' or undefined.
      * @return {boolean} 'Fast Fade-in' state.
@@ -390,6 +404,63 @@ export class UserSettings {
     }
 
     /**
+     * Get or set Movies Per Row size.
+     * @param {number|undefined} val - Movies Per Row value.
+     * @return {number} Movies Per Row value.
+     */
+    moviesPerRow(val) {
+        if (val !== undefined) {
+            return this.set('moviesPerRow', parseInt(val, 10), false);
+        }
+
+        const moviesPerRow = parseInt(this.get('moviesPerRow', false), 10);
+        if (moviesPerRow === 0) {
+            // Explicitly return 0 to avoid returning 10 because 0 is falsy.
+            return 0;
+        } else {
+            return moviesPerRow || 10; /* Add to server settings */
+        }
+    }
+
+    /**
+     * Get or set Episodes Per Row size.
+     * @param {number|undefined} val - Episodes Per Row value.
+     * @return {number} Episodes Per Row value.
+     */
+    episodesPerRow(val) {
+        if (val !== undefined) {
+            return this.set('episodesPerRow', parseInt(val, 10), false);
+        }
+
+        const episodesPerRow = parseInt(this.get('episodesPerRow', false), 10);
+        if (episodesPerRow === 0) {
+            // Explicitly return 0 to avoid returning 10 because 0 is falsy.
+            return 0;
+        } else {
+            return episodesPerRow || 10; /* Add to server settings */
+        }
+    }
+
+    /**
+     * Get or set Music Per Row size.
+     * @param {number|undefined} val - Music Per Row value.
+     * @return {number} Music Per Row value.
+     */
+    musicPerRow(val) {
+        if (val !== undefined) {
+            return this.set('musicPerRow', parseInt(val, 10), false);
+        }
+
+        const musicPerRow = parseInt(this.get('musicPerRow', false), 10);
+        if (musicPerRow === 0) {
+            // Explicitly return 0 to avoid returning 10 because 0 is falsy.
+            return 0;
+        } else {
+            return musicPerRow || 20; /* Add to server settings */
+        }
+    }
+
+    /**
      * Get or set sound effects.
      * @param {string|undefined} val - Sound effects.
      * @return {string} Sound effects.
@@ -490,6 +561,7 @@ export const enableCinemaMode = currentSettings.enableCinemaMode.bind(currentSet
 export const enableNextVideoInfoOverlay = currentSettings.enableNextVideoInfoOverlay.bind(currentSettings);
 export const enableThemeSongs = currentSettings.enableThemeSongs.bind(currentSettings);
 export const enableThemeVideos = currentSettings.enableThemeVideos.bind(currentSettings);
+export const enableAlwaysScroll = currentSettings.enableAlwaysScroll.bind(currentSettings);
 export const enableFastFadein = currentSettings.enableFastFadein.bind(currentSettings);
 export const enableBlurhash = currentSettings.enableBlurhash.bind(currentSettings);
 export const enableBackdrops = currentSettings.enableBackdrops.bind(currentSettings);
@@ -504,6 +576,9 @@ export const skin = currentSettings.skin.bind(currentSettings);
 export const theme = currentSettings.theme.bind(currentSettings);
 export const screensaver = currentSettings.screensaver.bind(currentSettings);
 export const libraryPageSize = currentSettings.libraryPageSize.bind(currentSettings);
+export const moviesPerRow = currentSettings.moviesPerRow.bind(currentSettings);
+export const episodesPerRow = currentSettings.episodesPerRow.bind(currentSettings);
+export const musicPerRow = currentSettings.musicPerRow.bind(currentSettings);
 export const soundEffects = currentSettings.soundEffects.bind(currentSettings);
 export const loadQuerySettings = currentSettings.loadQuerySettings.bind(currentSettings);
 export const saveQuerySettings = currentSettings.saveQuerySettings.bind(currentSettings);

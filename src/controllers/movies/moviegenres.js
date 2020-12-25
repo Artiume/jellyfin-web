@@ -1,13 +1,24 @@
 import layoutManager from '../../components/layoutManager';
 import loading from '../../components/loading/loading';
+import * as userSettings from '../../scripts/settings/userSettings';
 import libraryBrowser from '../../scripts/libraryBrowser';
 import cardBuilder from '../../components/cardbuilder/cardBuilder';
 import lazyLoader from '../../components/lazyLoader/lazyLoaderIntersectionObserver';
 import globalize from '../../scripts/globalize';
 import { appRouter } from '../../components/appRouter';
 import '../../elements/emby-button/emby-button';
+import '../../elements/emby-scroller/emby-scroller';
+import '../../elements/emby-itemscontainer/emby-itemscontainer';
 
 /* eslint-disable indent */
+
+   function MoviesPerRow() {
+        return userSettings.moviesPerRow();
+   }
+
+   function AlwaysScroll() {
+        return userSettings.enableAlwaysScroll();
+   }
 
     export default function (view, params, tabContent) {
         function getPageData() {
@@ -47,7 +58,11 @@ import '../../elements/emby-button/emby-button';
         }
 
         function enableScrollX() {
-            return !layoutManager.desktop;
+            if (AlwaysScroll()) {
+                return true;
+            } else {
+                return !layoutManager.desktop;
+            }
         }
 
         function getThumbShape() {
@@ -62,11 +77,7 @@ import '../../elements/emby-button/emby-button';
             const elem = entry.target;
             const id = elem.getAttribute('data-id');
             const viewStyle = this.getCurrentViewStyle();
-            let limit = viewStyle == 'Thumb' || viewStyle == 'ThumbCard' ? 5 : 9;
-
-            if (enableScrollX()) {
-                limit = 10;
-            }
+            const limit = MoviesPerRow();
 
             const enableImageTypes = viewStyle == 'Thumb' || viewStyle == 'ThumbCard' ? 'Primary,Backdrop,Thumb' : 'Primary';
             const query = {
@@ -168,6 +179,7 @@ import '../../elements/emby-button/emby-button';
                     }
 
                     html += '</div>';
+/*                    html += '<div is="emby-scroller" class="padded-top-focusscale padded-bottom-focusscale" data-centerfocus="true">';*/
                     html += '</div>';
                 }
 

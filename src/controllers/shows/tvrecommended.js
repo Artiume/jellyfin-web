@@ -91,6 +91,10 @@ import autoFocuser from '../../components/autoFocuser';
         loadNextUp(tabContent, userId, parentId);
     }
 
+    function EpisodesPerRow() {
+        return userSettings.episodesPerRow();
+    }
+
     function loadResume(view, userId, parentId) {
         const screenWidth = dom.getWindowSize().innerWidth;
         const options = {
@@ -98,7 +102,7 @@ import autoFocuser from '../../components/autoFocuser';
             SortOrder: 'Descending',
             IncludeItemTypes: 'Episode',
             Filters: 'IsResumable',
-            Limit: screenWidth >= 1920 ? 5 : screenWidth >= 1600 ? 5 : 3,
+            Limit: EpisodesPerRow(),
             Recursive: true,
             Fields: 'PrimaryImageAspectRatio,MediaSourceCount,BasicSyncInfo',
             CollapseBoxSetItems: false,
@@ -138,7 +142,7 @@ import autoFocuser from '../../components/autoFocuser';
         const options = {
             userId: userId,
             IncludeItemTypes: 'Episode',
-            Limit: 30,
+            Limit: EpisodesPerRow(),
             Fields: 'PrimaryImageAspectRatio,BasicSyncInfo',
             ParentId: parentId,
             ImageTypeLimit: 1,
@@ -176,7 +180,7 @@ import autoFocuser from '../../components/autoFocuser';
     function loadNextUp(view, userId, parentId) {
         const query = {
             userId: userId,
-            Limit: 24,
+            Limit: EpisodesPerRow(),
             Fields: 'PrimaryImageAspectRatio,DateCreated,BasicSyncInfo',
             ParentId: parentId,
             ImageTypeLimit: 1,

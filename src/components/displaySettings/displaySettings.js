@@ -118,6 +118,7 @@ import template from './displaySettings.template.html';
 
         context.querySelector('#chkThemeSong').checked = userSettings.enableThemeSongs();
         context.querySelector('#chkThemeVideo').checked = userSettings.enableThemeVideos();
+        context.querySelector('#chkAlwaysScroll').checked = userSettings.enableAlwaysScroll();
         context.querySelector('#chkFadein').checked = userSettings.enableFastFadein();
         context.querySelector('#chkBlurhash').checked = userSettings.enableBlurhash();
         context.querySelector('#chkBackdrops').checked = userSettings.enableBackdrops();
@@ -127,6 +128,9 @@ import template from './displaySettings.template.html';
         context.querySelector('.selectDateTimeLocale').value = userSettings.dateTimeLocale() || '';
 
         context.querySelector('#txtLibraryPageSize').value = userSettings.libraryPageSize();
+        context.querySelector('#txtMoviesPerRow').value = userSettings.moviesPerRow();
+        context.querySelector('#txtEpisodesPerRow').value = userSettings.episodesPerRow();
+        context.querySelector('#txtMusicPerRow').value = userSettings.musicPerRow();
 
         context.querySelector('.selectLayout').value = layoutManager.getSavedLayout() || '';
 
@@ -151,7 +155,11 @@ import template from './displaySettings.template.html';
         userSettingsInstance.screensaver(context.querySelector('.selectScreensaver').value);
 
         userSettingsInstance.libraryPageSize(context.querySelector('#txtLibraryPageSize').value);
+        userSettingsInstance.moviesPerRow(context.querySelector('#txtMoviesPerRow').value);
+        userSettingsInstance.episodesPerRow(context.querySelector('#txtEpisodesPerRow').value);
+        userSettingsInstance.musicPerRow(context.querySelector('#txtMusicPerRow').value);
 
+        userSettingsInstance.enableAlwaysScroll(context.querySelector('#chkAlwaysScroll').checked);
         userSettingsInstance.enableFastFadein(context.querySelector('#chkFadein').checked);
         userSettingsInstance.enableBlurhash(context.querySelector('#chkBlurhash').checked);
         userSettingsInstance.enableBackdrops(context.querySelector('#chkBackdrops').checked);
