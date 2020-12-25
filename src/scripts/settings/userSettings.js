@@ -437,7 +437,7 @@ export class UserSettings {
             return this.set('musicPerRow', parseInt(val, 10), false);
         }
 
-        const MmsicPerRow = parseInt(this.get('musicPerRow', false), 10);
+        const musicPerRow = parseInt(this.get('musicPerRow', false), 10);
         if (musicPerRow === 0) {
             // Explicitly return 0 to avoid returning 10 because 0 is falsy.
             return 0;
