@@ -3,7 +3,6 @@ import layoutManager from '../../components/layoutManager';
 import * as userSettings from '../../scripts/settings/userSettings';
 import inputManager from '../../scripts/inputManager';
 import loading from '../../components/loading/loading';
-import * as userSettings from '../../scripts/settings/userSettings';
 import cardBuilder from '../../components/cardbuilder/cardBuilder';
 import dom from '../../scripts/dom';
 import imageLoader from '../../components/images/imageLoader';
