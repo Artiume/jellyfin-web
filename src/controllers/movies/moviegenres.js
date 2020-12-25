@@ -165,7 +165,7 @@ import '../../elements/emby-button/emby-button';
                     html += '</a>';
                     html += '</div>';
                     if (enableScrollX()) {
-                        if (!layoutmanager.desktop) {
+                        if (!layoutManager.desktop) {
                         let scrollXClass = 'scrollX hiddenScrollX';
                         }
 
