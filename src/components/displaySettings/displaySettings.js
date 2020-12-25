@@ -158,7 +158,7 @@ import template from './displaySettings.template.html';
         userSettingsInstance.episodesPerRow(context.querySelector('#txtEpisodesPerRow').value);
         userSettingsInstance.musicPerRow(context.querySelector('#txtMusicPerRow').value);
 
-        userSettingsInstance.alwaysScroll(context.querySelector('#chkAlwaysScroll').checked);
+        userSettingsInstance.enableAlwaysScroll(context.querySelector('#chkAlwaysScroll').checked);
         userSettingsInstance.enableFastFadein(context.querySelector('#chkFadein').checked);
         userSettingsInstance.enableBlurhash(context.querySelector('#chkBlurhash').checked);
         userSettingsInstance.enableBackdrops(context.querySelector('#chkBackdrops').checked);
