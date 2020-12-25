@@ -91,8 +91,12 @@ import autoFocuser from '../../components/autoFocuser';
         loadNextUp(tabContent, userId, parentId);
     }
 
+    if (userSettings.EpisodesPerRow() > 0) {
+        query['Limit'] = userSettings.EpisodesPerRow();
+    }
+
     function EpisodesPerRow() {
-        return 50;
+        return query['Limit'];
     }
 
     function loadResume(view, userId, parentId) {
