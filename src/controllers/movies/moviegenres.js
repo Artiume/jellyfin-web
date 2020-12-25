@@ -67,7 +67,6 @@ import '../../elements/emby-button/emby-button';
             const id = elem.getAttribute('data-id');
             const viewStyle = this.getCurrentViewStyle();
             let limit = MoviesPerRow();
-            }
 
             const enableImageTypes = viewStyle == 'Thumb' || viewStyle == 'ThumbCard' ? 'Primary,Backdrop,Thumb' : 'Primary';
             const query = {
