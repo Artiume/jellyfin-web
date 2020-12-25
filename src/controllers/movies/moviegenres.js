@@ -57,7 +57,7 @@ import '../../elements/emby-button/emby-button';
 
         function enableScrollX() {
             if (AlwaysScroll()) {
-                return true; 
+                return true;
             } else {
                 return !layoutManager.desktop;
             }
