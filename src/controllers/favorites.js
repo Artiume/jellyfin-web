@@ -67,7 +67,7 @@ import ServerConnections from '../components/ServerConnections';
             centerText: true
         }, {
             name: 'Live TV',
-            types: 'livetv',
+            types: 'LiveTvProgram',
             shape: getPosterShape(),
             showTitle: true,
             showParentTitle: true,
