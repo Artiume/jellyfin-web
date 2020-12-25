@@ -4,6 +4,7 @@ import inputManager from '../../scripts/inputManager';
 import libraryMenu from '../../scripts/libraryMenu';
 import layoutManager from '../../components/layoutManager';
 import loading from '../../components/loading/loading';
+import * as userSettings from '../../scripts/settings/userSettings';
 import dom from '../../scripts/dom';
 import * as userSettings from '../../scripts/settings/userSettings';
 import cardBuilder from '../../components/cardbuilder/cardBuilder';
