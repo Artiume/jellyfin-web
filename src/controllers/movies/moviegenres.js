@@ -165,9 +165,7 @@ import '../../elements/emby-button/emby-button';
                     html += '</a>';
                     html += '</div>';
                     if (enableScrollX()) {
-                        if (!layoutManager.desktop) {
-                        const scrollXClass = 'scrollX hiddenScrollX';
-                        }
+                        let scrollXClass = 'scrollX hiddenScrollX';
 
                         if (layoutManager.tv) {
                             scrollXClass += 'smoothScrollX padded-top-focusscale padded-bottom-focusscale';
