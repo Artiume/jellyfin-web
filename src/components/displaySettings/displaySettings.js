@@ -153,9 +153,9 @@ import template from './displaySettings.template.html';
         userSettingsInstance.screensaver(context.querySelector('.selectScreensaver').value);
 
         userSettingsInstance.libraryPageSize(context.querySelector('#txtLibraryPageSize').value);
-        userSettingsInstance.MoviesPerRow(context.querySelector('#txtMoviesPerRow').value);
-        userSettingsInstance.EpisodesPerRow(context.querySelector('#txtEpisodesPerRow').value);
-        userSettingsInstance.MusicPerRow(context.querySelector('#txtMusicPerRow').value);
+        userSettingsInstance.moviesPerRow(context.querySelector('#txtMoviesPerRow').value);
+        userSettingsInstance.episodesPerRow(context.querySelector('#txtEpisodesPerRow').value);
+        userSettingsInstance.musicPerRow(context.querySelector('#txtMusicPerRow').value);
 
         userSettingsInstance.enableFastFadein(context.querySelector('#chkFadein').checked);
         userSettingsInstance.enableBlurhash(context.querySelector('#chkBlurhash').checked);
