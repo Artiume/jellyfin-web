@@ -19,12 +19,8 @@ import * as userSettings from '../../scripts/settings/userSettings';
 
 /* eslint-disable indent */
 
-     if (userSettings.MoviesPerRow() > 0) {
-          query['Limit'] = userSettings.MoviesPerRow();
-      }
-
     function MoviesPerRow() {
-        return query['Limit'];
+        return userSettings.MoviesPerRow();
     }
 
     function enableScrollX() {
