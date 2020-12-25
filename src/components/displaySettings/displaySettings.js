@@ -127,9 +127,9 @@ import template from './displaySettings.template.html';
         context.querySelector('.selectDateTimeLocale').value = userSettings.dateTimeLocale() || '';
 
         context.querySelector('#txtLibraryPageSize').value = userSettings.libraryPageSize();
-        context.querySelector('#txtMoviesPerRow').value = userSettings.MoviesPerRow();
-        context.querySelector('#txtEpisodesPerRow').value = userSettings.EpisodesPerRow();
-        context.querySelector('#txtMusicPerRow').value = userSettings.MusicPerRow();
+        context.querySelector('#txtMoviesPerRow').value = userSettings.moviesPerRow();
+        context.querySelector('#txtEpisodesPerRow').value = userSettings.episodesPerRow();
+        context.querySelector('#txtMusicPerRow').value = userSettings.musicPerRow();
 
         context.querySelector('.selectLayout').value = layoutManager.getSavedLayout() || '';
 
