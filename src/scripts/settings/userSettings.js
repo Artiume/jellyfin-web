@@ -427,7 +427,7 @@ export class UserSettings {
         }
     }
 
-   /**
+    /**
      * Get or set Music Per Row size.
      * @param {number|undefined} val - Music Per Row value.
      * @return {number} Music Per Row value.
