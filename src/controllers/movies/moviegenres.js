@@ -8,6 +8,7 @@ import globalize from '../../scripts/globalize';
 import { appRouter } from '../../components/appRouter';
 import '../../elements/emby-button/emby-button';
 import '../../elements/emby-scroller/emby-scroller';
+import '../../elements/emby-itemscontainer/emby-itemscontainer';
 
 /* eslint-disable indent */
 
