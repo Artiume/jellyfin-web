@@ -1,5 +1,6 @@
 import layoutManager from '../../components/layoutManager';
 import loading from '../../components/loading/loading';
+import * as userSettings from '../../scripts/settings/userSettings';
 import libraryBrowser from '../../scripts/libraryBrowser';
 import cardBuilder from '../../components/cardbuilder/cardBuilder';
 import lazyLoader from '../../components/lazyLoader/lazyLoaderIntersectionObserver';
@@ -58,8 +59,12 @@ import '../../elements/emby-button/emby-button';
             return enableScrollX() ? 'overflowPortrait' : 'portrait';
         }
 
+       if (userSettings.MoviesPerRow() > 0) {
+            query['Limit'] = userSettings.MoviesPerRow();
+        }
+        
         function MoviesPerRow() {
-            return 50;
+            return query['Limit'];
         }
 
         const fillItemsContainer = (entry) => {
