@@ -10,6 +10,14 @@ import '../../elements/emby-button/emby-button';
 
 /* eslint-disable indent */
 
+   if (userSettings.MoviesPerRow() > 0) {
+        query['Limit'] = userSettings.MoviesPerRow();
+   }
+        
+   function MoviesPerRow() {
+        return query['Limit'];
+   }
+
     export default function (view, params, tabContent) {
         function getPageData() {
             const key = getSavedQueryKey();
@@ -57,14 +65,6 @@ import '../../elements/emby-button/emby-button';
 
         function getPortraitShape() {
             return enableScrollX() ? 'overflowPortrait' : 'portrait';
-        }
-
-       if (userSettings.MoviesPerRow() > 0) {
-            query['Limit'] = userSettings.MoviesPerRow();
-        }
-        
-        function MoviesPerRow() {
-            return query['Limit'];
         }
 
         const fillItemsContainer = (entry) => {
