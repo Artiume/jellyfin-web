@@ -179,7 +179,7 @@ import '../../elements/emby-itemscontainer/emby-itemscontainer';
                     }
 
                     html += '</div>';
-                    html += '<div is="emby-scroller" class="padded-top-focusscale padded-bottom-focusscale" data-centerfocus="true">';
+/*                    html += '<div is="emby-scroller" class="padded-top-focusscale padded-bottom-focusscale" data-centerfocus="true">';*/
                     html += '</div>';
                 }
 
