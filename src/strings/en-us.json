@@ -198,6 +198,8 @@
     "EditImages": "Edit images",
     "EditMetadata": "Edit metadata",
     "EditSubtitles": "Edit subtitles",
+    "EnableAlwaysScroll": "Always enforce scrolling",
+    "EnableAlwaysScrollHelp": "Recommend enabling this if returning more than 10 items per row."
     "EnableAutoCast": "Set as Default",
     "EnableBackdropsHelp": "Display backdrops in the background of some pages while browsing the library.",
     "EnableBlurHash": "Enable blurred placeholders for images",
