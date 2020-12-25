@@ -20,7 +20,7 @@ import * as userSettings from '../../scripts/settings/userSettings';
 /* eslint-disable indent */
 
     function MoviesPerRow() {
-        return userSettings.MoviesPerRow();
+        return userSettings.moviesPerRow();
     }
 
     function enableScrollX() {
