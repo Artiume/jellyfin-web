@@ -371,7 +371,7 @@ export class UserSettings {
     }
 
     /**
-     * Get or set library page size.
+     * Get or set Library page size.
      * @param {number|undefined} val - Library page size.
      * @return {number} Library page size.
      */
@@ -386,6 +386,63 @@ export class UserSettings {
             return 0;
         } else {
             return libraryPageSize || 100;
+        }
+    }
+
+    /**
+     * Get or set Movies Per Row size.
+     * @param {number|undefined} val - Movies Per Row value.
+     * @return {number} Movies Per Row value.
+     */
+    MoviesPerRow(val) {
+        if (val !== undefined) {
+            return this.set('MoviesPerRow', parseInt(val, 10), false);
+        }
+
+        const MoviesPerRow = parseInt(this.get('MoviesPerRow', false), 10);
+        if (MoviesPerRow === 0) {
+            // Explicitly return 0 to avoid returning 10 because 0 is falsy.
+            return 0;
+        } else {
+            return MoviesPerRow || 10; /* Add to server settings */
+        }
+    }
+
+   /**
+     * Get or set Episodes Per Row size.
+     * @param {number|undefined} val - Episodes Per Row value.
+     * @return {number} Episodes Per Row value.
+     */
+    EpisodesPerRow(val) {
+        if (val !== undefined) {
+            return this.set('EpisodesPerRow', parseInt(val, 10), false);
+        }
+
+        const EpisodesPerRow = parseInt(this.get('EpisodesPerRow', false), 10);
+        if (EpisodesPerRow === 0) {
+            // Explicitly return 0 to avoid returning 10 because 0 is falsy.
+            return 0;
+        } else {
+            return EpisodesPerRow || 10; /* Add to server settings */
+        }
+    }
+
+   /**
+     * Get or set Music Per Row size.
+     * @param {number|undefined} val - Music Per Row value.
+     * @return {number} Music Per Row value.
+     */
+    MusicPerRow(val) {
+        if (val !== undefined) {
+            return this.set('MusicPerRow', parseInt(val, 10), false);
+        }
+
+        const MusicPerRow = parseInt(this.get('MusicPerRow', false), 10);
+        if (MusicPerRow === 0) {
+            // Explicitly return 0 to avoid returning 10 because 0 is falsy.
+            return 0;
+        } else {
+            return MusicPerRow || 20; /* Add to server settings */
         }
     }
 
