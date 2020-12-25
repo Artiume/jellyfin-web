@@ -7,6 +7,7 @@ import lazyLoader from '../../components/lazyLoader/lazyLoaderIntersectionObserv
 import globalize from '../../scripts/globalize';
 import { appRouter } from '../../components/appRouter';
 import '../../elements/emby-button/emby-button';
+import '../../elements/emby-scroller/emby-scroller';
 
 /* eslint-disable indent */
 
