@@ -14,6 +14,10 @@ import '../../elements/emby-button/emby-button';
         return userSettings.moviesPerRow();
    }
 
+   function AlwaysScroll() {
+        return userSettings.enableAlwaysScroll();
+   }
+
     export default function (view, params, tabContent) {
         function getPageData() {
             const key = getSavedQueryKey();
@@ -52,7 +56,10 @@ import '../../elements/emby-button/emby-button';
         }
 
         function enableScrollX() {
-            return !layoutManager.desktop;
+            if AlwaysScroll() 
+                return true; 
+            else
+                return !layoutManager.desktop;
         }
 
         function getThumbShape() {
