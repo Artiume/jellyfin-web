@@ -118,6 +118,7 @@ import template from './displaySettings.template.html';
 
         context.querySelector('#chkThemeSong').checked = userSettings.enableThemeSongs();
         context.querySelector('#chkThemeVideo').checked = userSettings.enableThemeVideos();
+        context.querySelector('#chkAlwaysWrap').checked = userSettings.alwaysWrap();
         context.querySelector('#chkFadein').checked = userSettings.enableFastFadein();
         context.querySelector('#chkBlurhash').checked = userSettings.enableBlurhash();
         context.querySelector('#chkBackdrops').checked = userSettings.enableBackdrops();
@@ -157,6 +158,7 @@ import template from './displaySettings.template.html';
         userSettingsInstance.episodesPerRow(context.querySelector('#txtEpisodesPerRow').value);
         userSettingsInstance.musicPerRow(context.querySelector('#txtMusicPerRow').value);
 
+        userSettingsInstance.alwaysWrap(context.querySelector('#chkAlwaysWrap').checked);
         userSettingsInstance.enableFastFadein(context.querySelector('#chkFadein').checked);
         userSettingsInstance.enableBlurhash(context.querySelector('#chkBlurhash').checked);
         userSettingsInstance.enableBackdrops(context.querySelector('#chkBackdrops').checked);
