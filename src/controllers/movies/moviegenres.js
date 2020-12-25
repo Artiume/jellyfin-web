@@ -56,10 +56,11 @@ import '../../elements/emby-button/emby-button';
         }
 
         function enableScrollX() {
-            if AlwaysScroll() 
+            if (AlwaysScroll()) {
                 return true; 
-            else
+            } else {
                 return !layoutManager.desktop;
+            }
         }
 
         function getThumbShape() {
