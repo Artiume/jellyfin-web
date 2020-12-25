@@ -58,11 +58,15 @@ import '../../elements/emby-button/emby-button';
             return enableScrollX() ? 'overflowPortrait' : 'portrait';
         }
 
+        function MoviesPerRow() {
+            return 50;
+        }
+
         const fillItemsContainer = (entry) => {
             const elem = entry.target;
             const id = elem.getAttribute('data-id');
             const viewStyle = this.getCurrentViewStyle();
-            let limit = 20;
+            let limit = MoviesPerRow();
             }
 
             const enableImageTypes = viewStyle == 'Thumb' || viewStyle == 'ThumbCard' ? 'Primary,Backdrop,Thumb' : 'Primary';
