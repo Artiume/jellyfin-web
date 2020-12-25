@@ -198,6 +198,20 @@ export class UserSettings {
     }
 
     /**
+     * Get or set 'Always Wrap' state.
+     * @param {boolean|undefined} val - Flag to enable 'Always Wrap' or undefined.
+     * @return {boolean} 'Always Wrap' state.
+     */
+    enableAlwaysWrap(val) {
+        if (val !== undefined) {
+            return this.set('enableAlwaysWrap', val.toString(), false);
+        }
+
+        val = this.get('enableAlwaysWrap', false);
+        return val === 'true';
+    }
+
+    /**
      * Get or set 'Fast Fade-in' state.
      * @param {boolean|undefined} val - Flag to enable 'Fast Fade-in' or undefined.
      * @return {boolean} 'Fast Fade-in' state.
@@ -547,6 +561,7 @@ export const enableCinemaMode = currentSettings.enableCinemaMode.bind(currentSet
 export const enableNextVideoInfoOverlay = currentSettings.enableNextVideoInfoOverlay.bind(currentSettings);
 export const enableThemeSongs = currentSettings.enableThemeSongs.bind(currentSettings);
 export const enableThemeVideos = currentSettings.enableThemeVideos.bind(currentSettings);
+export const enableAlwaysWrap = currentSettings.enableAlwaysWrap.bind(currentSettings);
 export const enableFastFadein = currentSettings.enableFastFadein.bind(currentSettings);
 export const enableBlurhash = currentSettings.enableBlurhash.bind(currentSettings);
 export const enableBackdrops = currentSettings.enableBackdrops.bind(currentSettings);
