@@ -118,7 +118,7 @@ import template from './displaySettings.template.html';
 
         context.querySelector('#chkThemeSong').checked = userSettings.enableThemeSongs();
         context.querySelector('#chkThemeVideo').checked = userSettings.enableThemeVideos();
-        context.querySelector('#chkAlwaysWrap').checked = userSettings.alwaysWrap();
+        context.querySelector('#chkAlwaysWrap').checked = userSettings.enableAlwaysWrap();
         context.querySelector('#chkFadein').checked = userSettings.enableFastFadein();
         context.querySelector('#chkBlurhash').checked = userSettings.enableBlurhash();
         context.querySelector('#chkBackdrops').checked = userSettings.enableBackdrops();
