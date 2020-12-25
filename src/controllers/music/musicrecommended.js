@@ -18,12 +18,8 @@ import Dashboard from '../../scripts/clientUtils';
 
 /* eslint-disable indent */
 
-    if (userSettings.MusicPerRow() > 0) {
-        query['Limit'] = userSettings.MusicPerRow();
-    }
-
     function MusicPerRow() {
-        return query['Limit'];
+        return userSettings.musicPerRow();
     }
 
     function enableScrollX() {
