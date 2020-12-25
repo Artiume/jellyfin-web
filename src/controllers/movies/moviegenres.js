@@ -10,12 +10,8 @@ import '../../elements/emby-button/emby-button';
 
 /* eslint-disable indent */
 
-   if (userSettings.MoviesPerRow() > 0) {
-        query['Limit'] = userSettings.MoviesPerRow();
-   }
-
    function MoviesPerRow() {
-        return query['Limit'];
+        return userSettings.moviesPerRow();
    }
 
     export default function (view, params, tabContent) {
