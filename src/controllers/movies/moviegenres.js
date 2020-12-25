@@ -160,7 +160,7 @@ import '../../elements/emby-itemscontainer/emby-itemscontainer';
                         context: 'movies',
                         parentId: params.topParentId
                     }) + '" class="more button-flat button-flat-mini sectionTitleTextButton btnMoreFromGenre' + item.Id + '">';
-                    html += '<h2 class="sectionTitle sectionTitle-cards">';
+                    html += '<h2 class="sectionTitle sectionTitle-cards focuscontainer-x padded-left padded-right">';
                     html += item.Name;
                     html += '</h2>';
                     html += '<span class="material-icons hide chevron_right"></span>';
@@ -172,13 +172,14 @@ import '../../elements/emby-itemscontainer/emby-itemscontainer';
                         if (layoutManager.tv) {
                             scrollXClass += 'smoothScrollX padded-top-focusscale padded-bottom-focusscale';
                         }
-                        html += '<div is="emby-scroller" class="padded-top-focusscale padded-bottom-focusscale" data-centerfocus="true">';
+
                         html += '<div is="emby-itemscontainer" class="itemsContainer ' + scrollXClass + ' lazy padded-left padded-right" data-id="' + item.Id + '">';
                     } else {
                         html += '<div is="emby-itemscontainer" class="itemsContainer vertical-wrap lazy padded-left padded-right" data-id="' + item.Id + '">';
                     }
 
                     html += '</div>';
+                    html += '<div is="emby-scroller" class="padded-top-focusscale padded-bottom-focusscale" data-centerfocus="true">';
                     html += '</div>';
                 }
 
