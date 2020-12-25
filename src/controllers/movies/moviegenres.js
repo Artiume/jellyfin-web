@@ -13,7 +13,7 @@ import '../../elements/emby-button/emby-button';
    if (userSettings.MoviesPerRow() > 0) {
         query['Limit'] = userSettings.MoviesPerRow();
    }
-        
+
    function MoviesPerRow() {
         return query['Limit'];
    }
