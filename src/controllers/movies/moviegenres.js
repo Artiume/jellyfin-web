@@ -160,7 +160,7 @@ import '../../elements/emby-itemscontainer/emby-itemscontainer';
                         context: 'movies',
                         parentId: params.topParentId
                     }) + '" class="more button-flat button-flat-mini sectionTitleTextButton btnMoreFromGenre' + item.Id + '">';
-                    html += '<h2 class="sectionTitle sectionTitle-cards focuscontainer-x padded-left padded-right">';
+                    html += '<h2 class="sectionTitle sectionTitle-cards">';
                     html += item.Name;
                     html += '</h2>';
                     html += '<span class="material-icons hide chevron_right"></span>';
