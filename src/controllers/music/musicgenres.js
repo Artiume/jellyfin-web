@@ -2,7 +2,6 @@ import libraryBrowser from '../../scripts/libraryBrowser';
 import cardBuilder from '../../components/cardbuilder/cardBuilder';
 import imageLoader from '../../components/images/imageLoader';
 import loading from '../../components/loading/loading';
-import * as userSettings from '../../scripts/settings/userSettings';
 
 /* eslint-disable indent */
 
