@@ -23,7 +23,6 @@ import Dashboard from '../../scripts/clientUtils';
         query['Limit'] = userSettings.MusicPerRow();
     }
 
-
     function MusicPerRow() {
         return query['Limit'];
     }
