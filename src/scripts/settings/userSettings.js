@@ -198,16 +198,16 @@ export class UserSettings {
     }
 
     /**
-     * Get or set 'Always Wrap' state.
-     * @param {boolean|undefined} val - Flag to enable 'Always Wrap' or undefined.
-     * @return {boolean} 'Always Wrap' state.
+     * Get or set 'Always Scroll' state.
+     * @param {boolean|undefined} val - Flag to enable 'Always Scroll' or undefined.
+     * @return {boolean} 'Always Scroll' state.
      */
-    enableAlwaysWrap(val) {
+    enableAlwaysScroll(val) {
         if (val !== undefined) {
-            return this.set('enableAlwaysWrap', val.toString(), false);
+            return this.set('enableAlwaysScroll', val.toString(), false);
         }
 
-        val = this.get('enableAlwaysWrap', false);
+        val = this.get('enableAlwaysScroll', false);
         return val === 'true';
     }
 
