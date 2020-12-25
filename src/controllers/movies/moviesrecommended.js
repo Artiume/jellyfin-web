@@ -18,6 +18,10 @@ import Dashboard from '../../scripts/clientUtils';
 
 /* eslint-disable indent */
 
+    function MoviesPerRow() {
+        return 50;
+    }
+
     function enableScrollX() {
         return !layoutManager.desktop;
     }
@@ -33,7 +37,7 @@ import Dashboard from '../../scripts/clientUtils';
     function loadLatest(page, userId, parentId) {
         const options = {
             IncludeItemTypes: 'Movie',
-            Limit: 50,
+            Limit: MoviesPerRow(),
             Fields: 'PrimaryImageAspectRatio,MediaSourceCount,BasicSyncInfo',
             ParentId: parentId,
             ImageTypeLimit: 1,
@@ -66,7 +70,7 @@ import Dashboard from '../../scripts/clientUtils';
             SortOrder: 'Descending',
             IncludeItemTypes: 'Movie',
             Filters: 'IsResumable',
-            Limit: 20,
+            Limit: MoviesPerRow(),
             Recursive: true,
             Fields: 'PrimaryImageAspectRatio,MediaSourceCount,BasicSyncInfo',
             CollapseBoxSetItems: false,
@@ -160,7 +164,7 @@ import Dashboard from '../../scripts/clientUtils';
         const url = ApiClient.getUrl('Movies/Recommendations', {
             userId: userId,
             categoryLimit: 6,
-            ItemLimit: 20,
+            ItemLimit: MoviesPerRow(),
             Fields: 'PrimaryImageAspectRatio,MediaSourceCount,BasicSyncInfo',
             ImageTypeLimit: 1,
             EnableImageTypes: 'Primary,Backdrop,Banner,Thumb'
