@@ -371,7 +371,7 @@ export class UserSettings {
     }
 
     /**
-     * Get or set Library page size.
+     * Get or set library page size.
      * @param {number|undefined} val - Library page size.
      * @return {number} Library page size.
      */
@@ -394,17 +394,17 @@ export class UserSettings {
      * @param {number|undefined} val - Movies Per Row value.
      * @return {number} Movies Per Row value.
      */
-    MoviesPerRow(val) {
+    moviesPerRow(val) {
         if (val !== undefined) {
-            return this.set('MoviesPerRow', parseInt(val, 10), false);
+            return this.set('moviesPerRow', parseInt(val, 10), false);
         }
 
-        const MoviesPerRow = parseInt(this.get('MoviesPerRow', false), 10);
-        if (MoviesPerRow === 0) {
+        const moviesPerRow = parseInt(this.get('moviesPerRow', false), 10);
+        if (moviesPerRow === 0) {
             // Explicitly return 0 to avoid returning 10 because 0 is falsy.
             return 0;
         } else {
-            return MoviesPerRow || 10; /* Add to server settings */
+            return moviesPerRow || 10; /* Add to server settings */
         }
     }
 
@@ -413,17 +413,17 @@ export class UserSettings {
      * @param {number|undefined} val - Episodes Per Row value.
      * @return {number} Episodes Per Row value.
      */
-    EpisodesPerRow(val) {
+    episodesPerRow(val) {
         if (val !== undefined) {
-            return this.set('EpisodesPerRow', parseInt(val, 10), false);
+            return this.set('episodesPerRow', parseInt(val, 10), false);
         }
 
-        const EpisodesPerRow = parseInt(this.get('EpisodesPerRow', false), 10);
-        if (EpisodesPerRow === 0) {
+        const episodesPerRow = parseInt(this.get('episodesPerRow', false), 10);
+        if (episodesPerRow === 0) {
             // Explicitly return 0 to avoid returning 10 because 0 is falsy.
             return 0;
         } else {
-            return EpisodesPerRow || 10; /* Add to server settings */
+            return episodesPerRow || 10; /* Add to server settings */
         }
     }
 
@@ -432,17 +432,17 @@ export class UserSettings {
      * @param {number|undefined} val - Music Per Row value.
      * @return {number} Music Per Row value.
      */
-    MusicPerRow(val) {
+    musicPerRow(val) {
         if (val !== undefined) {
-            return this.set('MusicPerRow', parseInt(val, 10), false);
+            return this.set('musicPerRow', parseInt(val, 10), false);
         }
 
-        const MusicPerRow = parseInt(this.get('MusicPerRow', false), 10);
-        if (MusicPerRow === 0) {
+        const MmsicPerRow = parseInt(this.get('musicPerRow', false), 10);
+        if (musicPerRow === 0) {
             // Explicitly return 0 to avoid returning 10 because 0 is falsy.
             return 0;
         } else {
-            return MusicPerRow || 20; /* Add to server settings */
+            return musicPerRow || 20; /* Add to server settings */
         }
     }
 
@@ -561,9 +561,9 @@ export const skin = currentSettings.skin.bind(currentSettings);
 export const theme = currentSettings.theme.bind(currentSettings);
 export const screensaver = currentSettings.screensaver.bind(currentSettings);
 export const libraryPageSize = currentSettings.libraryPageSize.bind(currentSettings);
-export const MoviesPerRow = currentSettings.MoviesPerRow.bind(currentSettings);
-export const EpisodesPerRow = currentSettings.EpisodesPerRow.bind(currentSettings);
-export const MusicPerRow = currentSettings.MusicPerRow.bind(currentSettings);
+export const moviesPerRow = currentSettings.moviesPerRow.bind(currentSettings);
+export const episodesPerRow = currentSettings.episodesPerRow.bind(currentSettings);
+export const musicPerRow = currentSettings.musicPerRow.bind(currentSettings);
 export const soundEffects = currentSettings.soundEffects.bind(currentSettings);
 export const loadQuerySettings = currentSettings.loadQuerySettings.bind(currentSettings);
 export const saveQuerySettings = currentSettings.saveQuerySettings.bind(currentSettings);
