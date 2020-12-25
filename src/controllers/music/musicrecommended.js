@@ -3,6 +3,7 @@ import layoutManager from '../../components/layoutManager';
 import * as userSettings from '../../scripts/settings/userSettings';
 import inputManager from '../../scripts/inputManager';
 import loading from '../../components/loading/loading';
+import * as userSettings from '../../scripts/settings/userSettings';
 import cardBuilder from '../../components/cardbuilder/cardBuilder';
 import dom from '../../scripts/dom';
 import imageLoader from '../../components/images/imageLoader';
@@ -18,8 +19,13 @@ import Dashboard from '../../scripts/clientUtils';
 
 /* eslint-disable indent */
 
+    if (userSettings.MusicPerRow() > 0) {
+        query['Limit'] = userSettings.MusicPerRow();
+    }
+
+
     function MusicPerRow() {
-        return 20;
+        return query['Limit'];
     }
 
     function enableScrollX() {
