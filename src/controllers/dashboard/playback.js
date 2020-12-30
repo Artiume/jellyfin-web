@@ -10,7 +10,7 @@ import Dashboard from '../../scripts/clientUtils';
         $('#txtMinResumePct', page).val(config.MinResumePct);
         $('#txtMaxResumePct', page).val(config.MaxResumePct);
         $('#txtMinAudiobookResume', page).val(config.MinAudiobookResume);
-        $('#txtMaxAudiobookResume', page).val(config.MaxRAudiobookResume);
+        $('#txtMaxAudiobookResume', page).val(config.MaxAudiobookResume);
         $('#txtMinResumeDuration', page).val(config.MinResumeDurationSeconds);
         loading.hide();
     }
