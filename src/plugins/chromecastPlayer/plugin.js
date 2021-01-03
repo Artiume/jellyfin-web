@@ -62,7 +62,7 @@ const PLAYER_STATE = {
 // replace this value if you want to test changes on another instance
 const applicationStable = 'F007D354';
 const applicationUnstable = '6F511C87';
-let applicationCustom = config.CustomChomecastAppid;
+const applicationCustom = config.CustomChomecastAppid;
 
 const messageNamespace = 'urn:x-cast:com.connectsdk';
 
