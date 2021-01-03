@@ -556,6 +556,7 @@
     "LabelCurrentStatus": "Current status:",
     "LabelCustomCertificatePath": "Custom SSL certificate path:",
     "LabelCustomCertificatePathHelp": "Path to a PKCS #12 file containing a certificate and private key to enable TLS support on a custom domain.",
+    "LabelCustomChromecast": "Custom",
     "LabelCustomChomecastAppid": "Custom Chromecast Appid:",
     "LabelCustomChomecastAppidHelp": "Allows loading of a personal Chromecast Appid.",  
     "LabelCustomCss": "Custom CSS:",
