@@ -111,7 +111,7 @@ class CastPlayer {
         if (userSettings.chromecastVersion() === 'unstable') {
             applicationID = applicationUnstable;
         }
-        if else (userSettings.chromecastVersion() === 'custom') {
+        else if (userSettings.chromecastVersion() === 'custom') {
             applicableID = applicableCustom;
         }
 
