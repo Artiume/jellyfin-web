@@ -79,6 +79,13 @@ class AppSettings {
         return val ? parseInt(val) : null;
     }
 
+    customChromecastAppid(val) {
+        if (val !== undefined) {
+            this.set('enableSystemExternalPlayers', val.toString());
+        }
+        return this.get('customChromecastAppid');
+    }
+
     set(name, value, userId) {
         const currentValue = this.get(name, userId);
         AppStorage.setItem(this.#getKey(name, userId), value);
