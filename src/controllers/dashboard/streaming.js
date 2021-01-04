@@ -8,6 +8,7 @@ import Dashboard from '../../scripts/clientUtils';
 
     function loadPage(page, config) {
         $('#txtRemoteClientBitrateLimit', page).val(config.RemoteClientBitrateLimit / 1e6 || '');
+        $('#txtCustomChromecastAppid', page).val(config.CustomChromecastAppid);
         loading.hide();
     }
 
@@ -16,6 +17,7 @@ import Dashboard from '../../scripts/clientUtils';
         const form = this;
         ApiClient.getServerConfiguration().then(function (config) {
             config.RemoteClientBitrateLimit = parseInt(1e6 * parseFloat($('#txtRemoteClientBitrateLimit', form).val() || '0'));
+            config.CustomChromecastAppid = $('#txtCustomChromecastAppid', form).val();
             ApiClient.updateServerConfiguration(config).then(Dashboard.processServerConfigurationUpdateResult);
         });
 
