@@ -8,6 +8,7 @@ import Dashboard from '../../utils/dashboard';
 
     function loadPage(page, config) {
         $('#txtRemoteClientBitrateLimit', page).val(config.RemoteClientBitrateLimit / 1e6 || '');
+        $('#txtCustomChromecastAppid', page).val(config.CustomChromecastAppid);
         loading.hide();
     }
 
