@@ -17,6 +17,7 @@ import Dashboard from '../../utils/dashboard';
         const form = this;
         ApiClient.getServerConfiguration().then(function (config) {
             config.RemoteClientBitrateLimit = parseInt(1e6 * parseFloat($('#txtRemoteClientBitrateLimit', form).val() || '0'));
+            config.CustomChromecastAppid = $('#txtCustomChromecastAppid', form).val();
             ApiClient.updateServerConfiguration(config).then(Dashboard.processServerConfigurationUpdateResult);
         });
 
