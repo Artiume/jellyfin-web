@@ -110,8 +110,9 @@ class CastPlayer {
         let applicationID = applicationStable;
         if (userSettings.chromecastVersion() === 'unstable') {
             applicationID = applicationUnstable;
+        } else if (userSettings.chromecastVersion() === 'custom') {
+            applicationID = applicationCustom;
         }
-
         // request session
         const sessionRequest = new chrome.cast.SessionRequest(applicationID);
         const apiConfig = new chrome.cast.ApiConfig(sessionRequest,
