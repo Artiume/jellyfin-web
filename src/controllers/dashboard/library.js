@@ -74,17 +74,24 @@ import cardBuilder from '../../components/cardbuilder/cardBuilder';
     }
 
     function renameVirtualFolder(page, virtualFolder) {
-        import('../../components/prompt/prompt').then(({default: prompt}) => {
-            prompt({
-                label: globalize.translate('LabelNewName'),
-                confirmText: globalize.translate('ButtonRename')
-            }).then(function (newName) {
-                if (newName && newName != virtualFolder.Name) {
-                    const refreshAfterChange = shouldRefreshLibraryAfterChanges(page);
-                    ApiClient.renameVirtualFolder(virtualFolder.Name, newName, refreshAfterChange).then(function () {
-                        reloadLibrary(page);
-                    });
-                }
+        confirm({
+            text: globalize.translate('MessageAreYouSureYouWishToRenameMediaFolder'),
+            title: globalize.translate('HeaderRenameMediaFolder'),
+            confirmText: globalize.translate('Rename'),
+            primary: 'rename'
+        }).then(function () {
+            import('../../components/prompt/prompt').then(({default: prompt}) => {
+                prompt({
+                    label: globalize.translate('LabelNewName'),
+                    confirmText: globalize.translate('ButtonRename')
+                }).then(function (newName) {
+                    if (newName && newName != virtualFolder.Name) {
+                        const refreshAfterChange = shouldRefreshLibraryAfterChanges(page);
+                        ApiClient.renameVirtualFolder(virtualFolder.Name, newName, refreshAfterChange).then(function () {
+                            reloadLibrary(page);
+                        });
+                    }
+                });
             });
         });
     }
